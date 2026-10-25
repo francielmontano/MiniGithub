@@ -1,0 +1,29 @@
+[project]
+name = "app"
+version = "0.1.0"
+description = "Mini Github project"
+readme = "README.md"
+authors = [
+    { name = "francielmontano", email = "franciel.montano.a@gmail.comclear" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.20.1",
+    "asyncpg>=0.32.0",
+    "fastapi>=0.162.0",
+    "greenlet>=3.5.6",
+    "pydantic-settings>=2.16.1",
+    "sqlalchemy>=2.1.6",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+mini-hub = "main:main"
+
+[build-system]
+requires = ["uv_build>=0.12.9,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""        
+module-name = "app" 
