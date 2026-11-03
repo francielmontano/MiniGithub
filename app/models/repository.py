@@ -21,7 +21,7 @@ class Repository(Base):
         default = False
     )
 
-    owner_id = Mapped[int] = mapped_column(
+    owner_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False
     )
