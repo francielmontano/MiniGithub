@@ -4,7 +4,7 @@ from sqlalchemy import Select
 from ..models import User
 
 
-class UserRespository:
+class UserRepository:
     def __init__(self, db: AsyncSession):
         self.db = db
         
