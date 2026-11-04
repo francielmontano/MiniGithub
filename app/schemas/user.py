@@ -1,4 +1,4 @@
-from pydantic import Field, EmailStr, HttpUrl, BaseModel, FilePath, ConfigDict
+from pydantic import Field, EmailStr, BaseModel, FilePath, ConfigDict
 
 from datetime import datetime
 
@@ -40,7 +40,8 @@ class UpdateUser(UserBase):
     name: str | None = Field(
         default=None, 
         min_length=2, 
-        max_length=50, pattern=r"^[a-zA-Z0-9_]+$"
+        max_length=50, 
+        pattern=r"^[a-zA-Z0-9_]+$"
     )
     
     email: EmailStr | None = Field(
