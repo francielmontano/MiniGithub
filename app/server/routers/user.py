@@ -11,6 +11,7 @@ from fastapi import (
     )
 
 from ...services.user_service import (
+    get_user_by_email,
     create_user,
     update_user,
     delete_user,
@@ -51,6 +52,19 @@ async def get_user_by_id(user_id: int, db: AsyncSession = Depends(get_db)) -> Us
         )
     return
 
+@router_user.get("/email/{email}",response_model=ResponseUser,status_code=status.HTTP_200_OK)
+async def get_email(email:str,db: AsyncSession = Depends(get_db)) -> User:
+
+    repositorie = UserRepository(db)
+    user = await get_user_by_email(repositorie,email)
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+        
+    return user
 
 @router_user.patch(
     "/{user_id}", response_model=ResponseUser, status_code=status.HTTP_200_OK
