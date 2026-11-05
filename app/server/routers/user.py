@@ -18,7 +18,7 @@ from ...services.user_service import (
     get_user,
 )
 
-router_user = APIRouter()
+router_user = APIRouter(tags=["Users"])
 
 
 @router_user.post("", response_model=ResponseUser, status_code=status.HTTP_201_CREATED)
