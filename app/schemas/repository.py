@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 class RepositoryBase(BaseModel):
@@ -6,7 +6,7 @@ class RepositoryBase(BaseModel):
     name: str
     is_private: bool
 
-class RepositoryCreate(BaseModel):
+class RepositoryCreate(RepositoryBase):
     owner_id: int
 
 class RepositoryUpdate(RepositoryBase):
@@ -19,5 +19,7 @@ class RepositoryResponse(RepositoryBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-            from_attributes = True
+    model_config = ConfigDict(
+            from_attributes= True,   
+            str_strip_whitespace=True
+        )

@@ -11,7 +11,7 @@ class RepoRepository:
         self,
         name: str,
         is_private: bool,
-        owner_id: str
+        owner_id: int
     ) -> Repository:
 
         repo = Repository(
@@ -22,7 +22,7 @@ class RepoRepository:
 
         self.db.add(repo)
         await self.db.commit()
-        await self.db.refresh()
+        await self.db.refresh(repo)
 
         return repo
 
@@ -50,16 +50,35 @@ class RepoRepository:
 
     async def repo_list_buscador(self, buscador: str, limit: int = 10) -> list[Repository]:
             
-            query = Select(Repository).where(Repository.name == buscador).limit(limit)
+            query = Select(Repository).where(Repository.name.ilike(f"%{buscador}%")).limit(limit)
             
             result = await self.db.execute(query)
             
             return result.scalars().all()
 
-    async def repo_list(self, id_usuario) -> list[Repository]:
+    async def repo_list_me(self, owner_id) -> list[Repository]:
                 
-                query = Select(Repository).where(Repository.owner_id == id_usuario)
+                query = Select(Repository).where(Repository.owner_id == owner_id)
                 
                 result = await self.db.execute(query)
                 
                 return result.scalars().all()
+
+    async def get_by_id(
+            self,
+            repo_id: int
+        ) -> Repository:
+            
+            query = Select(Repository).where(Repository.id == repo_id)
+            
+            result = await self.db.execute(query)
+            
+            return result.scalar_one_or_none()
+
+    async def repo_list(self,limit = 10) -> list[Repository]:
+            
+            query = Select(Repository).limit(limit)
+            
+            result = await self.db.execute(query)
+            
+            return result.scalars().all()

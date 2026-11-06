@@ -35,7 +35,7 @@ async def user_repo(
     repositories: RepoRepository, 
     owner_id: int
 )-> list[Repository]:
-    return await repositories.repo_list(owner_id)
+    return await repositories.repo_list_me(owner_id)
 
 async def repo_buscador(
     repositories: RepoRepository,
@@ -50,3 +50,17 @@ async def delete_repo(
 ) -> None:
     
     return await repositorie.delete(repo)
+
+async def get_repo(
+    repositorie: RepoRepository,
+    repo_id: int
+) -> Repository:
+    
+    return await repositorie.get_by_id(repo_id)
+
+async def list_all_repo(
+    repositorie: RepoRepository,
+    limit: int = 10
+) -> list[Repository]:
+    
+    return await repositorie.repo_list(limit)
