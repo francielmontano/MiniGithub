@@ -67,7 +67,7 @@ async def update_user(
         return user
     
     return await repositorie.update(user,update)
-       
+
 async def delete_user(
     repositorie: UserRepository,
     user: User

@@ -50,7 +50,7 @@ async def get_user_by_id(user_id: int, db: AsyncSession = Depends(get_db)) -> Us
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found",
         )
-    return
+    return user
 
 @router_user.get("/email/{email}",response_model=ResponseUser,status_code=status.HTTP_200_OK)
 async def get_email(email:str,db: AsyncSession = Depends(get_db)) -> User:
