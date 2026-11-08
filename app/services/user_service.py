@@ -39,6 +39,13 @@ async def get_user(
     
     return await repositorie.get_by_id(user_id)
 
+async def get_user_by_email(
+    respositorie: UserRepository,
+    email: str
+) -> User:
+    
+    return await respositorie.get_by_email(email)
+
 async def list_user(
     repositorie: UserRepository,
     limit: int = 10

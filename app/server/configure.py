@@ -16,6 +16,11 @@ class Settings(BaseSettings):
     # Data Base url
     database_url: str
     
+    #Fima de tokens JWT
+    secret_key: str 
+    algorithm: str = "HS256"
+    acces_token_time: int = 10
+    
     model_config = SettingsConfigDict(
         env_file = str(ENV_FILE),
         env_file_encoding = "utf-8",
