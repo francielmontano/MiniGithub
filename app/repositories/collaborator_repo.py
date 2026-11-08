@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession 
 from fastapi import HTTPException
 from sqlalchemy import Select
+from sqlalchemy.orm import joinedload
 from ..models import Repository_Collaborators
 
 class Repo_Collab:
@@ -47,10 +48,21 @@ class Repo_Collab:
             await self.db.commit()
 
     async def repository_collaborators_list(self, repository_id: int, limit: int = 10) -> list[Repository_Collaborators]:
+        query = (Select(Repository_Collaborators).where(Repository_Collaborators.repository_id == repository_id).limit(limit))
+
+        result = await self.db.execute(query)
+        return result.scalars().all()
+
+    async def get_by_ids(
+        self,
+        repository_id: int,
+        user_id: int
+) ->     Repository_Collaborators | None:
+
         query = (
-            Select(Repository_Collaborators).where(Repository_Collaborators.repository_id == repository_id).limit(limit)
+            Select(Repository_Collaborators).where(Repository_Collaborators.repository_id == repository_id, Repository_Collaborators.user_id == user_id)
         )
 
         result = await self.db.execute(query)
 
-        return result.scalars().all()
+        return result.scalar_one_or_none()

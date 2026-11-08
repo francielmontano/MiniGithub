@@ -1,10 +1,12 @@
 from fastapi import FastAPI
-from app.server.routers import  router_user, router_repo
+from app.server.routers import  router_user, router_repo, router_collab
 
 app = FastAPI()
 
 app.include_router(router_user,prefix="/user")
 app.include_router(router_repo,prefix="/repo")
+app.include_router(router_collab,prefix="/collab")
+
 
 @app.get("/")
 async def healt():

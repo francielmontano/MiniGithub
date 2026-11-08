@@ -1,8 +1,9 @@
 from pydantic import Field, BaseModel, ConfigDict
+from typing import Literal
 
 class BaseCollaborator(BaseModel):
-    role: str = Field(
-        default="wirte",
+    role: Literal["collaborator", "visitant", "admin"] = Field(
+        default="collaborator",
         max_length=20,
         description="Nivel de permiso del colaborador"
     )
@@ -19,7 +20,7 @@ class CollaboratorCreate(BaseCollaborator):
     )
 
 class CollaboratorUpdate(BaseCollaborator):
-    role: str = Field(..., max_length=20)
+    role: Literal["collaborator", "visitant", "admin"] = Field(..., description="Rol del colaborador en el repositorio")
 
 class CollaboratorResponse(BaseCollaborator):
     repository_id: int

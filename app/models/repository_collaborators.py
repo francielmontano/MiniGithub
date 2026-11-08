@@ -18,7 +18,7 @@ class Repository_Collaborators(Base):
     
     role: Mapped[str] = mapped_column(
         String(20),
-        default= "write", #roles pensados write, read and admin
+        default= "collaborator", #roles pensados write, read and admin
         nullable= False
     )
     

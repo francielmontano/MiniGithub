@@ -9,7 +9,7 @@ from alembic import context
 from app.server.configure import (settings)
 from app.database.base import Base
 
-from app.models import User, Repository
+from app.models import User, Repository, repository_collaborators
 
 
 # this is the Alembic Config object, which provides
