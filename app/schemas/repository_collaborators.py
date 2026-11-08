@@ -13,6 +13,11 @@ class CollaboratorCreate(BaseCollaborator):
         description = "Id del repositorio"
     )
 
+    user_id: int = Field(
+        gt = 0,
+        description="Id del usuario que va a colaborar"
+    )
+
 class CollaboratorUpdate(BaseCollaborator):
     role: str = Field(..., max_length=20)
 
