@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.server.routers import  router_user, router_repo
+from app.server.routers import  router_user, router_repo, router_auth
 from app.server.configure import settings
 
 app = FastAPI(
@@ -9,7 +9,7 @@ app = FastAPI(
 
 app.include_router(router_user,prefix="/user")
 app.include_router(router_repo,prefix="/repo")
-
+app.include_router(router_auth, prefix="/auth")
 @app.get("/")
 async def healt():
     return "Bienvenido a tu API FastAPI"

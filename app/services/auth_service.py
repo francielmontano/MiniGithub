@@ -11,7 +11,7 @@ async def verify_pass(plain_pass: str, hash_pass: str) -> bool:
         return False
 
 
-async def generate_token(user_id: str, email: str) -> str:
+def generate_token(user_id: str, email: str) -> str:
 
     expired = datetime.now(timezone.utc) + timedelta(minutes=settings.acces_token_time)
 
